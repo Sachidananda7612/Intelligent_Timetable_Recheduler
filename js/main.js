@@ -1,13 +1,6 @@
 // Example: handle login form
 document.addEventListener('DOMContentLoaded', () => {
   const loginForm = document.getElementById('loginForm');
-  if (loginForm) {
-    loginForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      alert('Login functionality will be added later with backend.');
-      window.location.href = 'dashboard.html';
-    });
-  }
 
   const absenceForm = document.getElementById('absenceForm');
   if (absenceForm) {
@@ -17,28 +10,52 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 });
-document.addEventListener("DOMContentLoaded", () => {
-  const timetableBody = document.getElementById("timetableBody");
 
-  if (timetableBody) {
-    fetch("../backend/fetch_timetable.php")
-      .then(response => response.json())
-      .then(data => {
-        timetableBody.innerHTML = ""; // Clear previous rows
-        data.forEach(row => {
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td>${row.day}</td>
-            <td>${row.time_slot}</td>
-            <td>${row.subject}</td>
-            <td>${row.teacher}</td>
-          `;
-          timetableBody.appendChild(tr);
-        });
-      })
-      .catch(error => {
-        timetableBody.innerHTML = "<tr><td colspan='4'>Failed to load timetable.</td></tr>";
-        console.error("Error fetching timetable:", error);
-      });
-  }
-});
+const loginBtnHandler=(e)=>{
+  e.preventDefault();
+  const email=document.getElementById('email').value;
+     const password=document.getElementById('password').value;
+     
+     const role=document.getElementById('role').value;
+     const now=new Date();
+     const nineAm=new Date(now.getFullYear(),now.getMonth(),now.getDate(),9,0,0);
+     const millis=nineAm.getTime();
+    const  currenttime=new Date().getTime();
+    if(role=='teacher'){
+     if(currenttime<millis)
+     {
+       //api call to check whether the user exists or not
+      findIfUserPresent(email,password,role);
+   }else{
+    alert("unsuccesfull");
+   }}
+   else{
+    findIfUserPresent(email,password,role);
+   }
+} 
+
+
+ const findIfUserPresent = async(email,password,role) => {
+ const response= await fetch(`http://localhost:5000/api/getUser?email=${email}&password=${password}&role=${role}`);
+ const res = await response.json();
+     if(res.success){
+      if(role=="admin"){
+        window.location.href = 'dashboard.html';
+      }
+      else if(role=="teacher"){
+        if(res.isAlreadyLoggedIn){
+          alert("You have already loggd in for the day");
+        }
+        else{
+        alert("You have succesfully logged ");
+        }
+      }
+
+     }
+     else{
+      console.log(res);
+      alert("Invalid Email or Password");
+     }
+      
+
+    }

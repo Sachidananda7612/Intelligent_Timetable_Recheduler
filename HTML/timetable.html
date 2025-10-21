@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Timetable | Intelligent Timetable</title>
   <link rel="stylesheet" href="../css/style.css">
-  <script src="../js/main.js" defer></script>
+  <script src="../js/timetable.js"></script>
 </head>
 <body>
+  
   <header>
     <h2>Class Timetable</h2>
     <nav>
@@ -18,15 +19,40 @@
   </header>
 
   <main>
-    <h3>Generated Timetable</h3>
+    <h3 class="timetableHeader">Generated Timetable</h3>
     <table>
       <thead>
         <tr>
-          <th>Day</th>
-          <th>Time Slot</th>
-          <th>Subject</th>
-          <th>Teacher</th>
-        </tr>
+          <th rowspan="2">Day</th>
+          <th colspan="7">Time Slot</th>
+         </tr>
+         <tr>
+          <td>09:00-09:55</td>
+          <td>09:55-10:50</td>
+          <td>11:10-12:05</td>
+          <td>12:05-01:00</td>
+          <td>01:55-02:50</td>
+          <td>03:00-03:55</td>
+          <td>03:55-04:45</td>
+         </tr>
+         <tr>
+          <th>Monday</th>
+         </tr>
+         <tr>
+         <th>Tuesday</th>
+         </tr>
+          <tr>
+          <th>wednesday</th>
+         </tr>
+         <tr>
+         <th>Thursday</th>
+         </tr>
+         <tr>
+          <th>Friday</th>
+         </tr>
+         <tr>
+         <th>Staturday</th>
+         </tr>
       </thead>
       <tbody id="timetableBody">
         <!-- Data will be loaded dynamically using JavaScript -->
